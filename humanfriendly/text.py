@@ -421,18 +421,23 @@ def tokenize(text):
     [42.5, 'MB']
     >>> tokenize('42.5 MB')
     [42.5, 'MB']
+    >>> tokenize('-42.5MB')
+    [-42.5, 'MB']
+    >>> tokenize('-42 MB')
+    [-42.5, 'MB']
     """
     tokenized_input = []
-    for token in re.split(r'(\d+(?:\.\d+)?)', text):
+    for token in re.split(r'(-?\d+(?:\.\d+)?)', text):
         token = token.strip()
-        if re.match(r'\d+\.\d+', token):
+        if re.match(r'-?\d+\.\d+', token):
+            print("Entering float here with token: ", token)
             tokenized_input.append(float(token))
-        elif token.isdigit():
+        elif re.match(r'-?\d+', token):
+            print("Entering int here with token: ", token)
             tokenized_input.append(int(token))
         elif token:
             tokenized_input.append(token)
     return tokenized_input
-
 
 def trim_empty_lines(text):
     """
