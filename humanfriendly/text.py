@@ -430,10 +430,8 @@ def tokenize(text):
     for token in re.split(r'(-?\d+(?:\.\d+)?)', text):
         token = token.strip()
         if re.match(r'-?\d+\.\d+', token):
-            print("Entering float here with token: ", token)
             tokenized_input.append(float(token))
         elif re.match(r'-?\d+', token):
-            print("Entering int here with token: ", token)
             tokenized_input.append(int(token))
         elif token:
             tokenized_input.append(token)
